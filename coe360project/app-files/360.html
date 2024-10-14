@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>COE360°PROJECT</title>
+<link rel="icon" href="/pic/logo.png" type="image/png">
+<meta charset="utf-8">
+<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui" />
+<style> @-ms-viewport { width: device-width; } </style>
+<link rel="stylesheet" href="vendor/reset.min.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="style.css">
+<style>
+
+#loading-screen {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background-color: #a83820;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #loading-screen.hidden {
+      display: none; /* ซ่อนหน้าโหลดเมื่อเพิ่มคลาส hidden */
+    }
+
+    .logo-container {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+
+    .animate-spin {
+      border-top: 4px solid #fff;
+      border-right: 4px solid transparent;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  /* อนิเมชั่นขยาย/หดตัวสำหรับปุ่มสตาร์ท */
+
+  .start-btn:hover {
+      animation: none; /* หยุดอนิเมชั่นเมื่อเมาส์วาง */
+      transform: scale(1.2); /* ขยายปุ่มเมื่อเมาส์วาง */
+  }
+  .itim-regular {
+  font-family: "Itim", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+@keyframes pulse {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+  }
+
+  .animate-pulse {
+    animation: pulse 2s infinite; /* ปรับให้ขยายและลดขนาดวนไปทุก ๆ 2 วินาที */
+  }
+</style>
+</head>
+
+
+<body class="bg-gray-100 relative">
+  <div id="loading-screen">
+    <div class="animate-spin"></div>
+  </div>
+
+<!-- หน้าเริ่มต้นพร้อมปุ่มสตาร์ท -->
+<div id="start-container" class="fixed inset-0 flex flex-col items-center justify-center bg-gray-900 bg-opacity-80 text-white z-40 font-itim">
+  <h1 class="text-3xl mb-6 font-itim">ยินดีต้อนรับสู่ COE360°PROJECT</h1>
+  
+  <!-- แทนที่ปุ่มด้วยไอคอน SVG -->
+  <div id="start-btn" class="flex items-center justify-center cursor-pointer animate-pulse transition-all duration-300 hover:scale-110">
+      <svg class="h-16 w-16 text-white hover:text-blue-500 transition-all duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
+      </svg>
+  </div>
+</div>
+
+  <div class="logo-container fixed top-12 right-3 z-10">
+      <a href="../../index.html" ><img src="img/logo.png" alt="Logo" class="w-12 h-auto"></a>
+  </div>
+<div id="pano"></div>
+
+<div id="sceneList">
+  <ul class="scenes font-itim">
+    
+      <a href="javascript:void(0)" class="scene" data-id="0-6-1">
+        <li class="text font-itim">ชั้น6-1</li>
+      </a>
+    
+      <a href="javascript:void(0)" class="scene" data-id="1-6-2">
+        <li class="text font-itim">ชั้น6-2</li>
+      </a>
+    
+      <a href="javascript:void(0)" class="scene" data-id="2-6-3">
+        <li class="text font-itim">ชั้น6-3</li>
+      </a>
+    
+      <a href="javascript:void(0)" class="scene" data-id="3-6-4">
+        <li class="text font-itim">ชั้น6-4</li>
+      </a>
+    
+      <a href="javascript:void(0)" class="scene" data-id="4-6-5">
+        <li class="text font-itim">ชั้น6-5</li>
+      </a>
+    
+      <a href="javascript:void(0)" class="scene" data-id="5-6-6">
+        <li class="text font-itim">ชั้น6-6</li>
+      </a>
+    
+      <a href="javascript:void(0)" class="scene" data-id="6-6-7">
+        <li class="text font-itim">ชั้น6-7</li>
+      </a>
+    
+      <a href="javascript:void(0)" class="scene" data-id="7-6-8">
+        <li class="text font-itim">ชั้น6-8</li>
+      </a>
+    
+      <a href="javascript:void(0)" class="scene" data-id="8-6-9">
+        <li class="text font-itim">ชั้น6-9</li>
+      </a>
+    
+      <a href="javascript:void(0)" class="scene" data-id="9-6-10">
+        <li class="text font-itim">ชั้น6-10</li>
+      </a>
+    
+      <a href="javascript:void(0)" class="scene" data-id="10-6-12">
+        <li class="text font-itim">ชั้น6-12</li>
+      </a>
+    
+      <a href="javascript:void(0)" class="scene" data-id="11-6-13">
+        <li class="text font-itim">ชั้น6-13</li>
+      </a>
+    
+      <a href="javascript:void(0)" class="scene" data-id="12-6-14">
+        <li class="text font-itim">ชั้น6-14</li>
+      </a>
+    
+      <a href="javascript:void(0)" class="scene" data-id="13-6-15">
+        <li class="text font-itim">ชั้น6-15</li>
+      </a>
+    
+      <a href="javascript:void(0)" class="scene" data-id="14-6-16">
+        <li class="text font-itim">ชั้น6-16</li>
+      </a>
+    
+      <a href="javascript:void(0)" class="scene" data-id="15-6-17">
+        <li class="text font-itim">ชั้น6-17</li>
+      </a>
+    
+      <a href="javascript:void(0)" class="scene" data-id="16-6-19">
+        <li class="text font-itim">ชั้น6-19</li>
+      </a>
+    
+      <a href="javascript:void(0)" class="scene" data-id="17-">
+        <li class="text font-itim">บันไดเล็ก</li>
+      </a>
+    
+      <a href="javascript:void(0)" class="scene" data-id="18-6-20">
+        <li class="text font-itim">ชั้น6-20</li>
+      </a>
+    
+      <a href="javascript:void(0)" class="scene" data-id="19-6-21">
+        <li class="text font-itim">ชั้น6-21</li>
+      </a>
+    
+      <a href="javascript:void(0)" class="scene" data-id="20-1">
+        <li class="text font-itim">บันไดใหญ่1</li>
+      </a>
+    
+      <a href="javascript:void(0)" class="scene" data-id="21-6-22">
+        <li class="text font-itim">ชั้น6-22</li>
+      </a>
+    
+      <a href="javascript:void(0)" class="scene" data-id="22-6-23">
+        <li class="text font-itim">ชั้น6-23</li>
+      </a>
+    
+      <a href="javascript:void(0)" class="scene" data-id="23-6-24">
+        <li class="text font-itim">ชั้น6-24</li>
+      </a>
+    
+      <a href="javascript:void(0)" class="scene" data-id="24-6-25">
+        <li class="text font-itim">ชั้น6-25</li>
+      </a>
+    
+      <a href="javascript:void(0)" class="scene" data-id="25-2">
+        <li class="text font-itim">บันไดใหญ่2</li>
+      </a>
+    
+      <a href="javascript:void(0)" class="scene" data-id="26-7">
+        <li class="text font-itim">ชั้น7หนัาบันได</li>
+      </a>
+    
+      <a href="javascript:void(0)" class="scene" data-id="27-7-1">
+        <li class="text font-itim">ชั้น7-1</li>
+      </a>
+    
+      <a href="javascript:void(0)" class="scene" data-id="28-7-2">
+        <li class="text font-itim">ชั้น7-2</li>
+      </a>
+    
+      <a href="javascript:void(0)" class="scene" data-id="29-7-3">
+        <li class="text font-itim">ชั้น7-3</li>
+      </a>
+    
+      <a href="javascript:void(0)" class="scene" data-id="30-7-4">
+        <li class="text font-itim">ชั้น7-4</li>
+      </a>
+    
+      <a href="javascript:void(0)" class="scene" data-id="31-7-5">
+        <li class="text font-itim">ชั้น7-5</li>
+      </a>
+    
+      <a href="javascript:void(0)" class="scene" data-id="32-7-6">
+        <li class="text font-itim">ชั้น7-6</li>
+      </a>
+    
+      <a href="javascript:void(0)" class="scene" data-id="33-7-8">
+        <li class="text font-itim">ชั้น7-8</li>
+      </a>
+    
+      <a href="javascript:void(0)" class="scene" data-id="34-7-9">
+        <li class="text font-itim">ชั้น7-9</li>
+      </a>
+    
+      <a href="javascript:void(0)" class="scene" data-id="35-7-10">
+        <li class="text font-itim">ชั้น7-10</li>
+      </a>
+    
+      <a href="javascript:void(0)" class="scene" data-id="36-7-12">
+        <li class="text font-itim">ชั้น7-12</li>
+      </a>
+    
+      <a href="javascript:void(0)" class="scene" data-id="37-mystery1">
+        <li class="text font-itim">mystery1</li>
+      </a>
+    
+      <a href="javascript:void(0)" class="scene" data-id="38-mystery2">
+        <li class="text font-itim">mystery2</li>
+      </a>
+    
+  </ul>
+</div>
+
+
+<div id="titleBar">
+  <h1 class="sceneName"></h1>
+</div>
+
+<a href="javascript:void(0)" id="autorotateToggle">
+  <img class="icon off" src="img/play.png">
+  <img class="icon on" src="img/pause.png">
+</a>
+
+<a href="javascript:void(0)" id="fullscreenToggle">
+  <img class="icon off" src="img/fullscreen.png">
+  <img class="icon on" src="img/windowed.png">
+</a>
+
+<a href="javascript:void(0)" id="sceneListToggle">
+  <img class="icon off" src="img/expand.png">
+  <img class="icon on" src="img/collapse.png">
+</a>
+
+<a href="javascript:void(0)" id="viewUp" class="viewControlButton viewControlButton-1">
+  <img class="icon" src="img/up.png">
+</a>
+<a href="javascript:void(0)" id="viewDown" class="viewControlButton viewControlButton-2">
+  <img class="icon" src="img/down.png">
+</a>
+<a href="javascript:void(0)" id="viewLeft" class="viewControlButton viewControlButton-3">
+  <img class="icon" src="img/left.png">
+</a>
+<a href="javascript:void(0)" id="viewRight" class="viewControlButton viewControlButton-4">
+  <img class="icon" src="img/right.png">
+</a>
+<a href="javascript:void(0)" id="viewIn" class="viewControlButton viewControlButton-5">
+  <img class="icon" src="img/plus.png">
+</a>
+<a href="javascript:void(0)" id="viewOut" class="viewControlButton viewControlButton-6">
+  <img class="icon" src="img/minus.png">
+</a>
+
+<script src="vendor/screenfull.min.js" ></script>
+<script src="vendor/bowser.min.js" ></script>
+<script src="vendor/marzipano.js" ></script>
+
+<script src="data.js"></script>
+<script src="index.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+      // ซ่อนหน้าโหลดเมื่อทุกอย่างโหลดเสร็จ
+      window.addEventListener('load', function () {
+          document.getElementById('loading-screen').classList.add('hidden');
+      });
+
+      // เมื่อผู้ใช้คลิกปุ่มสตาร์ท
+      document.getElementById('start-btn').addEventListener('click', function () {
+          // ซ่อนหน้าเริ่มต้น
+          document.getElementById('start-container').classList.add('hidden');
+          
+          // แสดงเนื้อหาเว็บไซต์ (ตัวอย่าง panorama viewer)
+          document.getElementById('pano').classList.remove('hidden');
+      });
+  });
+</script>
+<script>
+  // ซ่อนหน้าโหลดเมื่อหน้าเว็บโหลดเสร็จ
+  window.onload = function() {
+    document.getElementById('loading-screen').classList.add('hidden');
+  };
+</script>
+</body>
+</html>

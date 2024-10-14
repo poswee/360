@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ลองคลิ๊กเพื่อความม่วน</title>
+    <link rel="icon" href="pic/logo.png" type="image/png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* หน้าโหลด */
+        #loading-screen {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-color: #a83820;
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ภาพพื้นหลัง */
+        .bg-image {
+            background-size: cover;
+            background-position: center;
+            width: 100%;
+            height: 100vh;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.2s ease; /* เตรียมการสำหรับการเด้ง */
+        }
+
+        /* อนิเมชันภาพเด้ง */
+        .bg-image.bounce {
+            animation: bounce 0.4s ease; /* การตั้งค่าอนิเมชันเมื่อเด้ง */
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px); /* ขึ้นไป 20px */
+            }
+        }
+    </style>
+</head>
+<body class="relative">
+
+    <!-- หน้าโหลด -->
+    <div id="loading-screen" class="flex items-center justify-center">
+        <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-white"></div>
+    </div>
+
+    <!-- ภาพเต็มจอพร้อมการโต้ตอบ -->
+    <div id="image-container" class="bg-image" style="background-image: url('pic/2nue.jpg');"></div>
+
+    <!-- เพลงพื้นหลัง -->
+    <audio id="bg-music" loop>
+        <source src="sound/kuuecch-khnekriiyn.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        const audio = document.getElementById('bg-music');
+        const imageContainer = document.getElementById('image-container');
+        let isPlaying = false;
+
+        // ฟังก์ชันทำให้ภาพเด้งเมื่อคลิก
+        imageContainer.addEventListener('click', () => {
+            if (!isPlaying) {
+                audio.play();
+                isPlaying = true;
+            } else {
+                audio.pause();
+                isPlaying = false;
+            }
+            
+            // ทำให้ภาพเด้ง
+            imageContainer.classList.add('bounce');
+            
+            // ลบคลาสเด้งเมื่ออนิเมชันเสร็จสิ้น
+            setTimeout(() => {
+                imageContainer.classList.remove('bounce');
+            }, 400); // ระยะเวลาอนิเมชัน 0.4 วินาที
+        });
+
+        // ปิดหน้าโหลดเมื่อโหลดเสร็จ
+        window.onload = function() {
+            document.getElementById('loading-screen').style.display = 'none';
+        };
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@srexi/purecounterjs/dist/purecounter_vanilla.js"></script>
+
+
+    <title>KKU COE</title>
+    <link rel="icon" href="pic/logo.png" type="image/png">
+    <style>
+    .itim-regular {
+  font-family: "Itim", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+        
+        .custom-underline {
+      position: relative;
+      display: inline-block;
+    }
+
+    .custom-underline::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 4px; /* ความหนาของเส้นใต้ */
+      background-color: #a83820; /* สีของเส้นใต้ */
+      bottom: -12px; /* ระยะห่างระหว่างข้อความและเส้นใต้ */
+      left: 0;
+      border-radius: 2px; /* ทำให้เส้นโค้งมน */
+    }
+        /* กำหนดแอนิเมชันให้กับพื้นหลัง */
+        #hero {
+            background-image: url('pic/8.JPG');
+            background-size: cover;
+            background-position: center;
+            opacity: 0; /* เริ่มต้นด้วยความโปร่งใส */
+            transition: opacity 2s ease-in-out; /* ทำให้ค่อย ๆ เฟด */
+            height: 1190px; /* กำหนดความสูงเป็น 400px */
+        }
+        #hero.visible {
+    opacity: 1; 
+}
+.hero .bg-black {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+}
+.hero .container {
+    position: relative;
+    z-index: 10;
+}
+
+        /* สไตล์หน้าโหลด */
+        #loading-screen {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-color: #a83820; /* สีพื้นหลังของหน้าโหลด */
+            z-index: 50; /* ให้อยู่ด้านบนสุดของทุกองค์ประกอบ */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            .column {
+            background-size: cover;
+            background-position: center;
+            height: 200px;
+            color: white;
+            padding: 20px;
+            position: relative;
+            transition: all 0.8s ease-in-out;
+        }
+    }
+    .hidden {
+      display: none;
+    }
+    
+    .fade-out {
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out; /* ความเร็วเดิมสำหรับการเฟด */
+    }
+    
+    /* Animation for expanding content container */
+    .expand {
+      transition: all 0.5s ease-in-out; /* ความเร็วเดิมสำหรับการขยาย */
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    /* Initial smaller size for content container */
+    .start-scale {
+      transform: scale(0);
+      opacity: 0;
+      transition: all 0.5s ease-in-out; /* ความเร็วเดิมสำหรับการหด */
+    }
+
+    .column {
+      transition: all 0.5s ease-in-out;
+      cursor: pointer;
+    }
+
+    .column:hover {
+      transform: scale(1.05);
+    }
+
+    /* Expanded container in the DOM structure */
+    .expanded-container {
+      width: 80vw;
+      max-width: 1000px;
+      margin: 20px auto;
+      z-index: 1000;
+      position: relative;
+    }
+
+
+    /* Circle and cross button styling */
+    .close-btn {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 40px;
+      height: 40px;
+      background-color: #000;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: background-color 0.3s ease;
+    }
+
+    .close-btn:hover {
+      background-color: #444;
+    }
+
+    .close-btn span {
+      color: white;
+      font-size: 20px; /* ลดขนาดตัวอักษรลงเล็กน้อยเพื่อให้สมมาตรมากขึ้น */
+      line-height: 1;
+      font-weight: bold;
+      display: inline-block;
+      text-align: center; /* จัดให้อยู่กึ่งกลางวงกลม */
+    }
+    @keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-up {
+  opacity: 0;
+  transform: translateY(50px); /* เริ่มจากด้านล่าง */
+  transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+}
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0); /* กลับมาตำแหน่งปกติ */
+}
+@keyframes fadeInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(100px); /* เริ่มจากทางขวา */
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0); /* จบที่ตำแหน่งปกติ */
+  }
+}
+
+.fade-in-right {
+  opacity: 0;
+  transform: translateX(50px); /* เริ่มจากทางขวา */
+  transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+}
+.fade-in-right.visible {
+  opacity: 1;
+  transform: translateX(0); /* กลับมาตำแหน่งปกติ */
+}
+
+.hidden {
+      display: none;
+    }
+
+  @keyframes fadeInLeft {
+      0% {
+        opacity: 0;
+        transform: translateX(-50px); /* เลื่อนจากซ้าย */
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0); /* กลับมาที่ตำแหน่งปกติ */
+      }
+    }
+
+  @keyframes fadeInDown {
+      0% {
+        opacity: 0;
+        transform: translateY(50px); /* เลื่อนจากด้านล่าง */
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0); /* กลับมาที่ตำแหน่งปกติ */
+      }
+    }
+
+  .fade-in-left {
+  opacity: 0;
+  transform: translateX(-50px); /* เริ่มจากทางซ้าย */
+  transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+}
+.fade-in-left.visible {
+  opacity: 1;
+  transform: translateX(0); /* กลับมาตำแหน่งปกติ */
+}
+.fade-in-down {
+  opacity: 0;
+  transform: translateY(-50px); /* เริ่มจากด้านบน */
+  transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+}
+.fade-in-down.visible {
+  opacity: 1;
+  transform: translateY(0); /* กลับมาตำแหน่งปกติ */
+}
+.stats-container {
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-around; /* จัดระยะห่างระหว่างไอเทม */
+        align-items: center;
+        width: 100%;
+      }
+      .stats-item {
+        text-align: center;
+      }
+      .purecounter {
+        font-size: 3rem;
+        font-weight: bold;
+        color: #a83820; /* สีตัวเลข */
+      }
+      h5 {
+        margin-top: 10px;
+        font-size: 1.2rem;
+        color: #333;
+      }
+  </style>
+
+
+ 
+</head>
+<script>
+function checkVisibility() {
+  const elements = document.querySelectorAll('.fade-in-left, .fade-in-right, .fade-in-down, .fade-up');
+  
+  elements.forEach(element => {
+    const position = element.getBoundingClientRect();
+
+    // ถ้าตำแหน่งขององค์ประกอบอยู่ในหน้าจอหรือใกล้จะเข้าหน้าจอ ให้แสดง
+    if (position.top < window.innerHeight && position.bottom >= 0) {
+      element.classList.add('visible');
+    }
+  });
+}
+
+// เรียกฟังก์ชันนี้เมื่อโหลดหน้าเว็บ
+document.addEventListener("DOMContentLoaded", function() {
+  checkVisibility();  // ตรวจสอบเมื่อโหลดหน้าเว็บ
+});
+
+// เรียกฟังก์ชันนี้เมื่อเลื่อนสกอลเมาส์
+document.addEventListener("scroll", function() {
+  checkVisibility();  // ตรวจสอบเมื่อเลื่อนเมาส์
+});</script>
+<body>
+    <!-- หน้าโหลด -->
+    <div id="loading-screen" class="flex items-center justify-center">
+        <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-white"></div>
+    </div>
+    <nav class="bg-[#a83820] p-4 ">
+      <div class="container mx-auto flex justify-between items-center">
+        <!-- โลโก้ -->
+        <div class="pl-2 flex items-center space-x-4">
+          <img class="h-12 w-auto" src="pic/logo.png" alt="Your Company">
+          <a href="index.html" class="text-3xl font-semibold text-white relative hover:text-gray-200 hover:text-opacity-90 transition-all duration-300 after:block after:absolute after:left-0 after:bottom-[-5px] after:h-[3px] after:bg-white after:w-0 hover:after:w-full after:transition-all after:duration-500 after:rounded-md">COE360°PROJECT</a>
+    </div>
+    
+        <!-- เมนูด้านขวา -->
+        <div class="flex items-center space-x-6 font-Itim pr-4">
+          <!-- ลิงก์ Gallery และ About Us -->
+          <a href="gallery.html" class="text-white  font-itim text-lg relative hover:text-gray-200 hover:text-opacity-90 transition-all duration-300 after:block after:absolute after:left-0 after:bottom-[-5px] after:h-[3px] after:bg-white after:w-0 hover:after:w-full after:transition-all after:duration-500 after:rounded-md">
+              Gallery
+          </a>
+          <a href="about.html" class="text-white text-lg font-itim  relative hover:text-gray-200 hover:text-opacity-90 transition-all duration-300 after:block after:absolute after:left-0 after:bottom-[-5px] after:h-[3px] after:bg-white after:w-0 hover:after:w-full after:transition-all after:duration-500 after:rounded-md">
+              About Us
+          </a>
+      
+          <!-- ปุ่ม Let's Tour ขวาสุด -->
+          <div class="ml-auto">
+              <a class="btn-get-started bg-white font-itim text-black px-6 py-2 rounded-full shadow-lg hover:bg-gray-300 transition-all duration-300" href="coe360project/app-files/360.html">
+                  Let's Tour
+              </a>
+          </div>
+      </div>
+      </div>
+    </nav>
+    <!-- Hero Section -->
+    <section id="hero" class="hero section h-screen relative flex items-center font-Itim shadow-lg justify-center text-center text-white">
+      <div class="absolute inset-0 bg-black opacity-25 z-1"></div>
+        <div class="container mx-auto font-itim ">
+            <h2 class="text-8xl font-bold mb-4" data-aos="fade-up" data-aos-delay="100">
+                ຕຶກ ເພຍວິຈິດ
+            </h2>
+            <p class="text-4xl mb-6" data-aos="fade-up" data-aos-delay="200">
+                ມະຫາວິທະຍາໄລຂອນແກ່ນ
+            </p>
+            <div class="mt-10" data-aos="fade-up" data-aos-delay="300">
+                <a class="btn-get-started bg-[#a83820] text-white px-8 py-4 rounded-full shadow-lg hover:bg-white hover:text-black transition-all duration-300" href="coe360project/app-files/360.html">
+                    Let's Tour
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- เรียกใช้ AOS -->
+    <script>
+        AOS.init({
+            duration: 1000,  // ระยะเวลาในการเฟด (1 วินาที)
+        });
+
+        // ให้พื้นหลังเฟดเข้ามาหลังจากหน้าเว็บโหลดเสร็จ
+        window.onload = function() {
+            document.getElementById('hero').classList.add('visible');
+            const loadingScreen = document.getElementById('loading-screen');
+            loadingScreen.style.display = 'none';  // ซ่อนหน้าโหลดเมื่อโหลดเสร็จ
+        };
+    </script>
+</body>
+</div>
+
+<body class="bg-gray-100">
+
+  <section class="container mx-auto mt-10 px-0 fade-in-right">
+    <div class="bg-white shadow-lg rounded-lg p-6 w-full animate-[fadeIn_1s_ease-in-out]">
+      <h2 class="text-2xl font-semibold mb-4" style="color: #a83820;">WHAT IS COE360°PROJECT</h2>
+
+      <p class="text-lg font-itim leading-relaxed mb-6 text-gray-700">
+        โปรเจกต์นี้เป็นโปรเจกต์ในรายวิชา "Fundamental of Computer Programing" ซึ่งในเว็บไซต์นี้ได้รวบรวมภาพ360° และภาพของตึกเพียรวิจิตร รวมไปถึงข้อมูลของจำนวนปลั๊กไฟทีวีและโต๊ะในห้องต่างๆ 
+      </p>
+      
+    </div>
+  </section>
+  
+
+  <div class="container mx-auto p-8 mt-5 font-itim">
+    <h1 class="text-4xl font-itim mb-4 text-left custom-underline fade-in-left ">เกี่ยวกับตึกเพียรวิจิตร</h1>
+    
+    <section id="counts" class="section counts light-background py-10">
+      <div class="container mx-auto fade-up shadow-lg rounded-md">
+        <!-- กล่องใหญ่ยาวเต็มจอ -->
+        <div class="stats-container">
+          <!-- เนื้อหาด้านในกล่องใหญ่ -->
+          <div class="stats-item text-center">
+            <div class="flex justify-center items-center mb-2 text-gray-700">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-gray-500">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 0 1-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0 1 15 18.257V17.25m6-12V15a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 15V5.25m18 0A2.25 2.25 0 0 0 18.75 3H5.25A2.25 2.25 0 0 0 3 5.25m18 0V12a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 12V5.25" />
+              </svg>
+            </div>
+            <span data-purecounter-start="0" data-purecounter-end="15" data-purecounter-duration="2" class="purecounter text-4xl font-bold"></span>
+            <h5 class="text-lg mt-2 font-itim">คอมพิวเตอร์</h5>
+          </div>
+          
+  
+          <div class="stats-item text-center">
+            <div class="flex justify-center items-center mb-2 text-gray-700">
+              <svg class="h-8 w-8 text-gray-500"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M5 8h8.5a2.5 2.5 0 1 0 -2.34 -3.24" />  <path d="M3 12h15.5a2.5 2.5 0 1 1 -2.34 3.24" />  <path d="M4 16h5.5a2.5 2.5 0 1 1 -2.34 3.24" /></svg>
+            </div>
+            <span data-purecounter-start="0" data-purecounter-end="9" data-purecounter-duration="2" class="purecounter text-4xl font-bold"></span>
+            <h5 class="text-lg mt-2 font-itim">เครื่องปรับอากาศ</h5>
+          </div>
+  
+          <div class="stats-item text-center text-gray-700">
+            <div class="flex justify-center items-center mb-2">
+              <svg class="h-8 w-8 text-gray-500"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M7 7h10v6a3 3 0 0 1 -3 3h-4a3 3 0 0 1 -3 -3v-6" />  <line x1="9" y1="3" x2="9" y2="7" />  <line x1="15" y1="3" x2="15" y2="7" />  <path d="M12 16v2a2 2 0 0 0 2 2h3" /></svg>
+            </div>
+            <span data-purecounter-start="0" data-purecounter-end="69" data-purecounter-duration="2" class="purecounter text-4xl font-bold"></span>
+            <h5 class="text-lg mt-2 font-itim">เต้าปลั๊กไฟ</h5>
+          </div>
+  
+          <div class="stats-item text-center text-gray-700">
+            <div class="flex justify-center items-center mb-2">
+              <svg class="h-8 w-8 text-gray-500"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <rect x="3" y="7" width="18" height="13" rx="2" />  <polyline points="16 3 12 7 8 3" /></svg>
+            </div>
+            <span data-purecounter-start="0" data-purecounter-end="6" data-purecounter-duration="2" class="purecounter text-4xl font-bold"></span>
+            <h5 class="text-lg mt-2 font-itim">จอทีวี</h5>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    
+  
+    <!-- เรียกใช้ PureCounter -->
+    <script>
+      new PureCounter(); // เรียกใช้ฟังก์ชัน PureCounter หลังจากที่ DOM โหลดเสร็จสมบูรณ์
+    </script>
+
+<section class="container mx-auto mt-10 px-0 fade-in-right shadow-lg">
+  <div class="bg-white shadow-lg rounded-lg p-6 animate-[fadeIn_1s_ease-in-out] w-full">
+    <iframe src="coe360project/app-files/360.html" width="100%" height="600" frameborder="0"></iframe>
+
+  </div>
+</section>
+    <!-- 3 คอลัมน์ -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16" id="columns-container">
+      
+      <!-- คอลัมน์ที่ 1 -->
+      <div class="column text-white shadow-lg rounded-lg cursor-pointer relative p-6 hover:scale-105 h-64 w-full transition-all duration-500"
+    style="background-image: url('pic/5.JPG'); background-size: cover; background-position: center;" 
+    onclick="expandColumn(this, 'content1')">
+  <div class="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-50 transition-all duration-500 rounded-lg"></div>
+  <h2 class="text-4xl font-itim mb-4 relative z-10" style="text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);">MAP</h2>
+</div>
+
+
+  
+      <!-- คอลัมน์ที่ 2 -->
+      <div class="column text-white shadow-lg rounded-lg cursor-pointer relative p-6 hover:scale-105 h-64 w-full transition-all duration-500"
+      style="background-image: url('pic/2.jpg'); background-size: cover; background-position: center;" 
+      onclick="expandColumn(this, 'content2')">
+    <div class="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-50 transition-all rounded-lg duration-500"></div>
+    <h2 class="text-4xl font-itim mb-4 relative z-10" style="text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);">VIDEO</h2>
+  </div>
+  
+      <!-- คอลัมน์ที่ 3 -->
+      <div class="column text-white shadow-lg rounded-lg cursor-pointer relative p-6 hover:scale-105 h-64 w-full transition-all duration-500"
+      style="background-image: url('pic/2nue.jpg'); background-size: cover; background-position: center;" 
+      onclick="expandColumn(this, 'content3')">
+    <div class="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-50 transition-all rounded-lg duration-500"></div>
+    <h2 class="text-4xl font-itim mb-4 relative z-10" style="text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);">MYSTERY?</h2>
+  </div>
+  
+    </div>
+    <!-- Expanded content container -->
+    <div id="expanded-container" class="hidden expanded-container bg-white p-8 rounded-lg transition-all duration-500 ease-in-out start-scale"></div>
+  </div>
+  
+  <script>
+    let isExpanded = false;
+
+    // Object containing the content for each column
+    const contentData = {
+  content1: `
+    <div class="close-btn shadow-lg rounded-lg "onclick="closeExpanded()">
+      <span>&#x2715;</span>
+    </div>
+    <div class="p-6 ">
+      <h2 class="text-2xl font-bold mb-10 custom-underline fade-up">แผนที่ตำแหน่งตึกเพียรวิจิตร</h2>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3826.0649283735643!2d102.82092897685885!3d16.472249684267236!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31228a8be5184eb5%3A0x7316d55af70bec92!2z4LiV4Li24LiB4LmA4Lie4Li14Lii4Lij4Lin4Li04LiI4Li04LiV4LijIOC4hOC4k-C4sOC4p-C4tOC4qOC4p-C4geC4o-C4o-C4oeC4qOC4suC4quC4leC4o-C5jCDguKHguKvguLLguKfguLTguJfguKLguLLguKXguLHguKLguILguK3guJnguYHguIHguYjguJk!5e0!3m2!1sth!2sth!4v1727613633245!5m2!1sth!2sth" width="100%" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  `,
+      content2: `
+        <div class="close-btn shadow-lg rounded-lg" onclick="closeExpanded()">
+  <span>&#x2715;</span>
+</div>
+
+<div class="p-6">
+  <h2 class="text-2xl font-bold mb-10 custom-underline fade-up">วิดีโอเพิ่มเติม</h2>
+  
+  <div class="flex space-x-9"> 
+    <iframe src="https://www.youtube.com/embed/TaKOxTvlmxQ?si=cL0iVM6NVzw6hVHE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" width="900" height="300" allowfullscreen></iframe>
+
+    <iframe src="https://www.youtube.com/embed/j4PmJ1ZF5yM?si=_10Fl-3rndp5cZiQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" width="900" height="300" allowfullscreen></iframe>
+  </div>
+</div>
+`,
+      content3: `
+        <div class="close-btn shadow-lg rounded-lg" onclick="closeExpanded()">
+          <span>&#x2715;</span>
+        </div>
+        <div class="p-6 flex justify-center">
+           <div class="flex justify-center ">
+  <a href="nevergiveup.html" target="_blank" rel="noopener noreferrer" 
+   class="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 shadow-lg shadow-purple-500/50 dark:shadow-lg dark:shadow-purple-800/80 font-medium rounded-lg text-4xl px-12 py-6 text-center mr-2 mb-2 inline-block">
+  TRY &gt;
+</a>
+
+</div>
+        </div>
+      `
+    };
+
+    function expandColumn(element, contentKey) {
+  if (isExpanded) return;
+
+  isExpanded = true;
+  const columns = document.querySelectorAll('.grid > div');
+
+  // Fade out other columns except the clicked one
+  columns.forEach(col => {
+    if (col !== element) {
+      col.classList.add('fade-out', 'pointer-events-none');
+    }
+  });
+
+  const expandedContainer = document.getElementById('expanded-container');
+
+  // Insert expanded content
+  expandedContainer.innerHTML = contentData[contentKey];
+
+  
+  // Add animation with JavaScript delay
+  setTimeout(() => {
+    const heading = expandedContainer.querySelector('h2');
+    heading.classList.add('fade-up');
+  }, 300); // Add slight delay for animation effect
+
+  expandedContainer.classList.remove('hidden');
+  setTimeout(() => {
+    expandedContainer.classList.remove('start-scale');
+    expandedContainer.classList.add('expand');
+  }, 300);
+}
+
+    function closeExpanded() {
+      const expandedContainer = document.getElementById('expanded-container');
+      expandedContainer.classList.add('start-scale'); // Shrink back
+
+      setTimeout(() => {
+        expandedContainer.classList.remove('expand');
+        expandedContainer.classList.add('hidden');
+        expandedContainer.innerHTML = ''; // Clear content
+
+        // Reset other columns
+        const columns = document.querySelectorAll('.grid > div');
+        columns.forEach(col => {
+          col.classList.remove('fade-out', 'pointer-events-none');
+        });
+
+        isExpanded = false; // Reset state
+      }, 500); // Delay for shrinking animation
+    }
+  </script>
+<footer class="bg-[#a83820] text-white p-6 mt-6">
+  <div class="container mx-auto flex justify-between items-center">
+    <!-- โลโก้และชื่อโปรเจกต์ -->
+    <div class="pl-2 flex items-center">
+      <img class="h-12 w-auto" src="pic\logo.png" alt="Your Company">
+      <h1 class="text-white font-bold text-xl ml-4">COE360°PROJECT</h1>
+    </div>
+
+    <!-- ข้อมูลติดต่อหรือลิงก์ -->
+    <div class="space-x-4 font-itim">
+      <a href="https://www.instagram.com/pro_sc_grammer.zip.html.py.ipy?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" class="text-white relative flex items-center hover:text-gray-200 transition-all duration-300 after:block after:absolute after:left-0 after:bottom-[-5px] after:h-[2px] after:bg-white after:w-0 hover:after:w-full after:transition-all after:duration-500 after:rounded-md"><img src="pic\instagram-1-svgrepo-com.svg" alt="icon" class="w-auto h-8 mr-2" />: Contact us</a>
+    </div>
+  </div>
+
+  <!-- ลิงก์ด้านล่างเพิ่มเติม -->
+  <div class="container mx-auto flex justify-between items-center mt-4">
+    <p class="text-sm">&copy; 2024 COE360° Project. All rights reserved.</p>
+    <div class="flex space-x-4 font-itim">
+      <a href="gift.html" target="_blank" class="text-white relative flex items-center hover:text-gray-200 transition-all duration-300 after:block after:absolute after:left-0 after:bottom-[-5px] after:h-[2px] after:bg-white after:w-0 hover:after:w-full after:transition-all after:duration-500 after:rounded-md">Take this or mystery gift?</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
+
+

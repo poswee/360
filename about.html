@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us</title>
+  <link rel="icon" href="pic/logo.png" type="image/png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Kanit', sans-serif;
+    }
+    itim-regular {
+  font-family: "Itim", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+    #loading-screen {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background-color: #a83820;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #loading-screen.hidden {
+      display: none; /* ซ่อนหน้าโหลดเมื่อเพิ่มคลาส hidden */
+    }
+
+    .logo-container {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+
+    .animate-spin {
+      border-top: 4px solid #fff;
+      border-right: 4px solid transparent;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+</head>
+
+<div id="loading-screen">
+  <div class="animate-spin"></div>
+</div>
+
+<nav class="bg-[#a83820] p-4">
+  <div class="container mx-auto flex justify-between items-center">
+    <!-- โลโก้ -->
+    <div class="pl-2 flex items-center space-x-4">
+      <img class="h-12 w-auto" src="pic\logo.png" alt="Your Company">
+      <a href="index.html" class="text-3xl font-semibold text-white relative hover:text-gray-200 hover:text-opacity-90 transition-all duration-300 after:block after:absolute after:left-0 after:bottom-[-5px] after:h-[3px] after:bg-white after:w-0 hover:after:w-full after:transition-all after:duration-500 after:rounded-md">COE360°PROJECT</a>
+</div>
+
+    <!-- เมนูด้านขวา -->
+    <div class="flex items-center space-x-6 font-Itim pr-4">
+      <!-- ลิงก์ Gallery และ About Us -->
+      <a href="gallery.html" class="text-white  font-itim text-lg relative hover:text-gray-200 hover:text-opacity-90 transition-all duration-300 after:block after:absolute after:left-0 after:bottom-[-5px] after:h-[3px] after:bg-white after:w-0 hover:after:w-full after:transition-all after:duration-500 after:rounded-md">
+          Gallery
+      </a>
+      <!-- ปุ่ม Let's Tour ขวาสุด -->
+      <div class="ml-auto">
+          <a class="btn-get-started bg-white font-itim text-black px-6 py-2 rounded-full shadow-lg hover:bg-gray-300 transition-all duration-300" href="coe360project/app-files/360.html">
+              Let's Tour
+          </a>
+      </div>
+  </div>
+  </div>
+</nav>
+<body class="bg-gray-100 text-gray-800 ">
+  
+  <header class="bg-blue-600 py-6 animate-fadeIn  shadow-md ">
+    <div class="container mx-auto text-center">
+      <h1 class="text-3xl font-bold text-white">About Us</h1>
+      <p class="text-blue-200 mt-2">มาทำความรู้จักกับสมาชิกในทีมพวกเรากันดีกว่าาาา ٩(◕‿◕｡)۶</p>
+    </div>
+  </header>
+
+  <!-- About Section -->
+  <section class="container mx-auto my-12 px-6">
+    <div class="bg-white shadow-md rounded-lg p-6 animate-[fadeIn_1s_ease-in-out]">
+      <h2 class="text-2xl font-semibold mb-4 text-blue-600"> 	☆*:.｡.Who We Are.｡.:*☆</h2>
+      <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    >:.｡.พวกเราเป็นนักศึกษาวิศวกรรมศาสตร์ สาขาคอมพิวเตอร์ ปี1 รุ่นที่61	  ヽ(o＾▽＾o)ノ
+ทำโปรเจคกล้อง360องศากันทั้งหมด8คน มีใครบ้างไปดูกันเล๊ยย .｡.:<
+    </div>
+  </section>
+
+  <!-- Team Section -->
+  <section class="container mx-auto my-12 px-6 animate-[fadeIn_1s_ease-in-out]">
+    <div class="text-center mb-10">
+      <h2 class="text-2xl font-semibold text-blue-600">✧ω✧Meet Our Team✧ω✧</h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- Team Member 1 -->
+      <div class="team-member bg-white shadow-md rounded-lg p-6 text-center transform transition duration-300 hover:scale-105 hover:shadow-xl animate-[fadeIn_1.5s_ease-in-out]" data-hover-image="pic\รูปคนที่ตัดแล้ว-20241013T150358Z-001\รูปคนที่ตัดแล้ว\IMG_3901.PNG">
+        <img src="pic\รูปคนที่ตัดแล้ว-20241013T150358Z-001\รูปคนที่ตัดแล้ว\IMG_3898.PNG" alt="Team Member 1" class="w-auto h-64 mx-auto  rounded-full mb-4">
+        <h3 class="text-xl font-semibold text-blue-600">Sjung </h3>
+        <p class="text-gray-600">ณนณภพ สุขธ์สบาย</p>
+        <h3 class="text-m text-blue-600">ฅ(=^･ω･^=)ฅ </h3>
+      </div>
+      <!-- Team Member 2 -->
+      <div class="team-member bg-white shadow-md rounded-lg p-6 text-center transform transition duration-300 hover:scale-105 hover:shadow-xl animate-[fadeIn_1.7s_ease-in-out]" data-hover-image="pic\รูปคนที่ตัดแล้ว-20241013T150358Z-001\รูปคนที่ตัดแล้ว\IMG_3903.PNG">
+        <img src="pic\รูปคนที่ตัดแล้ว-20241013T150358Z-001\รูปคนที่ตัดแล้ว\IMG_3902.PNG" alt="Team Member 2" class="w-auto h-64 mx-auto object-cover object-top rounded-full mb-4">
+        <h3 class="text-xl font-semibold text-blue-600">Pukao</h3>
+        <p class="text-gray-600">ยศภัทร ปราสาทศรี</p>
+        <h3 class="text-m text-blue-600">	∑d(°∀°d) </h3>
+      </div>
+      <!-- Team Member 3 -->
+      <div class="team-member bg-white shadow-md rounded-lg p-6 text-center transform transition duration-300 hover:scale-105 hover:shadow-xl animate-[fadeIn_2s_ease-in-out]" data-hover-image="pic\รูปคนที่ตัดแล้ว-20241013T150358Z-001\รูปคนที่ตัดแล้ว\IMG_3894.PNG">
+        <img src="pic\รูปคนที่ตัดแล้ว-20241013T150358Z-001\รูปคนที่ตัดแล้ว\IMG_3893.PNG" alt="Team Member 3" class="w-auto h-56 mx-auto object-cover object-top rounded-full mb-4">
+        <h3 class="text-xl font-semibold text-blue-600">Kuka</h3>
+        <p class="text-gray-600">ปริญญา มัธยม</p>
+        <h3 class="text-m text-blue-600">	(*꒦ິ꒳꒦ີ) </h3>
+      </div>
+      <!-- Team Member 4 -->
+      <div class="team-member bg-white shadow-md rounded-lg p-6 text-center transform transition duration-300 hover:scale-105 hover:shadow-xl animate-[fadeIn_2.2s_ease-in-out]" data-hover-image="pic\รูปคนที่ตัดแล้ว-20241013T150358Z-001\รูปคนที่ตัดแล้ว\IMG_3889.PNG">
+        <img src="pic\รูปคนที่ตัดแล้ว-20241013T150358Z-001\รูปคนที่ตัดแล้ว\IMG_3887.PNG" alt="Team Member 4" class="w-auto h-64 mx-auto object-cover object-top rounded-full mb-4">
+        <h3 class="text-xl font-semibold text-blue-600">Panda</h3>
+        <p class="text-gray-600">จิดาภา นาเมือง</p>
+        <h3 class="text-m text-blue-600">(╮°-°)╮┳━━┳ </h3>
+        <h3 class="text-m text-blue-600">( ╯°□°)╯ ┻━━┻ </h3>
+      </div>
+      <!-- Team Member 5 -->
+      <div class="team-member bg-white shadow-md rounded-lg p-6 text-center transform transition duration-300 hover:scale-105 hover:shadow-xl animate-[fadeIn_2.4s_ease-in-out]" data-hover-image="pic\รูปคนที่ตัดแล้ว-20241013T150358Z-001\รูปคนที่ตัดแล้ว\IMG_3892.PNG">
+        <img src="pic\รูปคนที่ตัดแล้ว-20241013T150358Z-001\รูปคนที่ตัดแล้ว\IMG_3891.PNG" alt="Team Member 5" class="w-auto h-64 mx-auto mx-auto object-cover object-top rounded-full mb-4">
+        <h3 class="text-xl font-semibold text-blue-600">To</h3>
+        <p class="text-gray-600">พศวีร์ สารีบุตร</p>
+        <h3 class="text-m text-blue-600">╰(*´︶`*)╯ </h3>
+      </div>
+      <!-- Team Member 6 -->
+      <div class="team-member bg-white shadow-md rounded-lg p-6 text-center transform transition duration-300 hover:scale-105 hover:shadow-xl animate-[fadeIn_2.6s_ease-in-out]" data-hover-image="pic\รูปคนที่ตัดแล้ว-20241013T150358Z-001\รูปคนที่ตัดแล้ว\IMG_3909.PNG">
+        <img src="pic\รูปคนที่ตัดแล้ว-20241013T150358Z-001\รูปคนที่ตัดแล้ว\IMG_3908.PNG" alt="Team Member 6" class="w-auto h-56 mx-auto object-cover  object-top rounded-full mb-4">
+        <h3 class="text-xl font-semibold text-blue-600">Fah</h3>
+        <p class="text-gray-600">ขนิษฐา แก้วนาเมือง</p>
+        <h3 class="text-m text-blue-600">(〜￣△￣)〜</h3>
+      </div>
+     
+<!-- Team Member 7 -->
+ <div style="justify-content:center">
+      <div class="team-member bg-white shadow-md rounded-lg p-6 text-center transform transition duration-300 hover:scale-105 hover:shadow-xl animate-[fadeIn_2.8s_ease-in-out] col-span-1 md:col-span-1 md:col-start-2" data-hover-image="pic\รูปคนที่ตัดแล้ว-20241013T150358Z-001\รูปคนที่ตัดแล้ว\IMG_3886.PNG">
+        <img src="pic\รูปคนที่ตัดแล้ว-20241013T150358Z-001\รูปคนที่ตัดแล้ว\IMG_3884.PNG" alt="Team Member 7" class="w-auto h-56 mx-auto object-cover object-top rounded-full mb-4">
+        <h3 class="text-xl font-semibold text-blue-600">Ick-Q</h3>
+        <p class="text-gray-600">ญาณวุฒิ เลิศดิเรกกุล</p>
+        <h3 class="text-m text-blue-600">(„• ᴗ •„)</h3>
+      </div>
+</div>
+      <!-- New Team Member 8 -->
+ <div style="justify-content:center">
+      <div class="team-member bg-white shadow-md rounded-lg p-6 text-center transform transition duration-300 hover:scale-105 hover:shadow-xl animate-[fadeIn_3s_ease-in-out]" data-hover-image="pic\รูปคนที่ตัดแล้ว-20241013T150358Z-001\รูปคนที่ตัดแล้ว\IMG_3907.PNG">
+        <img src="pic\รูปคนที่ตัดแล้ว-20241013T150358Z-001\รูปคนที่ตัดแล้ว\IMG_3905.PNG" alt="Team Member 8" class="w-auto h-56 mx-auto object-cover object-top rounded-full mb-4">
+        <h3 class="text-xl font-semibold text-blue-600">Nicha</h3>
+        <p class="text-gray-600">ณัฐณิชา นันทะกุล</p>
+        <h3 class="text-m text-blue-600">	(￢‿￢ ) </h3>
+      </div>
+    </div>
+</div>
+  </section>
+
+  <footer class="bg-[#a83820] text-white p-6">
+    <div class="container mx-auto flex justify-between items-center">
+      <!-- โลโก้และชื่อโปรเจกต์ -->
+      <div class="pl-2 flex items-center">
+        <img class="h-12 w-auto" src="pic\logo.png" alt="Your Company">
+        <h1 class="text-white font-bold text-xl ml-4">COE360°PROJECT</h1>
+      </div>
+  
+      <!-- ข้อมูลติดต่อหรือลิงก์ -->
+      <div class="space-x-4 font-itim">
+        <a href="https://www.instagram.com/pro_sc_grammer.zip.html.py.ipy?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" class="text-white relative flex items-center hover:text-gray-200 transition-all duration-300 after:block after:absolute after:left-0 after:bottom-[-5px] after:h-[2px] after:bg-white after:w-0 hover:after:w-full after:transition-all after:duration-500 after:rounded-md"><img src="pic\instagram-1-svgrepo-com.svg" alt="icon" class="w-auto h-8 mr-2" />: Contact us</a>
+      </div>
+    </div>
+  
+    <!-- ลิงก์ด้านล่างเพิ่มเติม -->
+    <div class="container mx-auto flex justify-between items-center mt-4">
+      <p class="text-sm">&copy; 2024 COE360° Project. All rights reserved.</p>
+      <div class="flex space-x-4 font-itim">
+        <a href="gift.html" target="_blank" class="text-white relative flex items-center hover:text-gray-200 transition-all duration-300 after:block after:absolute after:left-0 after:bottom-[-5px] after:h-[2px] after:bg-white after:w-0 hover:after:w-full after:transition-all after:duration-500 after:rounded-md">Take this or mystery gift?</a>
+      </div>
+    </div>
+  </footer>
+  <script>
+    // ซ่อนหน้าโหลดเมื่อหน้าเว็บโหลดเสร็จ
+    window.onload = function() {
+      document.getElementById('loading-screen').classList.add('hidden');
+    };
+    
+
+  </script>
+  <script>
+    // Get all elements with the class 'team-member'
+    const teamMembers = document.querySelectorAll('.team-member');
+  
+    teamMembers.forEach(member => {
+      const img = member.querySelector('img'); // Get the image inside the div
+      const originalSrc = img.src; // Save the original image src
+      const hoverSrc = member.getAttribute('data-hover-image'); // Get the hover image src
+  
+      // Add event listener for mouse enter
+      member.addEventListener('mouseenter', () => {
+        img.src = hoverSrc; // Change image source to hover image
+      });
+  
+      // Add event listener for mouse leave
+      member.addEventListener('mouseleave', () => {
+        img.src = originalSrc; // Change back to original image
+      });
+    });
+  </script>
+</body>
+</html>

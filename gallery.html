@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery</title>
+    <link rel="icon" href="pic/logo.png" type="image/png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        itim-regular {
+  font-family: "Itim", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+        /* สไตล์สำหรับป๊อปอัพ */
+         /* สไตล์สำหรับป๊อปอัพ */
+          /* สไตล์หน้าโหลด */
+          #loading-screen {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-color: #a83820; /* สีพื้นหลังของหน้าโหลด */
+            z-index: 50; /* ให้อยู่ด้านบนสุดของทุกองค์ประกอบ */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            .column {
+            background-size: cover;
+            background-position: center;
+            height: 200px;
+            color: white;
+            padding: 20px;
+            position: relative;
+            transition: all 0.8s ease-in-out;
+        }
+    }
+    #loading-screen.hidden {
+            display: none; /* ซ่อนหน้าโหลดเมื่อเพิ่มคลาส hidden */
+        }
+         .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 50;
+        }
+
+        /* เอฟเฟกต์ตอนเปิดป๊อปอัพ */
+        .popup-overlay.active {
+            display: flex;
+            animation: popupFadeIn 0.8s ease-in-out forwards;
+        }
+
+        .popup-image {
+            max-width: 80%;
+            max-height: 80%;
+            border-radius: 10px;
+            transform: scale(0.8);
+            opacity: 0;
+            transition: all 0.8s ease-in-out;
+        }
+
+        /* เอฟเฟกต์ขยายตัว */
+        .popup-overlay.active .popup-image {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        /* เอฟเฟกต์เมื่อวางเมาส์บนรูปภาพ */
+        .image-frame:hover img {
+            transform: scale(1.05);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        /* คีย์เฟรมสำหรับป๊อปอัพ */
+        @keyframes popupFadeIn {
+            0% {
+                opacity: 0;
+                transform: scale(0);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* คีย์เฟรมสำหรับการย่อเมื่อปิด */
+        @keyframes popupFadeOut {
+            0% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0);
+            }
+        }
+        /* เฟดจากทางซ้าย */
+.fade-in-left {
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: opacity 1s ease, transform 1s ease;
+}
+
+/* เฟดจากทางขวา */
+.fade-in-right {
+    opacity: 0;
+    transform: translateX(50px);
+    transition: opacity 1s ease, transform 1s ease;
+}
+
+/* เฟดจากทางบน */
+.fade-in-down {
+    opacity: 0;
+    transform: translateY(-50px);
+    transition: opacity 1s ease, transform 1s ease;
+}
+
+/* เฟดจากทางล่าง */
+.fade-up {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 1s ease, transform 1s ease;
+}
+
+/* เมื่อองค์ประกอบอยู่ในมุมมองของหน้าจอ */
+.visible {
+    opacity: 1;
+    transform: translate(0);
+}
+        
+    </style>
+</head>
+<script>
+function checkVisibility() {
+    const elements = document.querySelectorAll('.fade-in-left, .fade-in-right, .fade-in-down, .fade-up');
+    
+    elements.forEach(element => {
+      const position = element.getBoundingClientRect();
+  
+      // ถ้าตำแหน่งขององค์ประกอบอยู่ในหน้าจอหรือใกล้จะเข้าหน้าจอ ให้แสดง
+      if (position.top < window.innerHeight && position.bottom >= 0) {
+        element.classList.add('visible');
+      }
+    });
+  }
+  
+  // เรียกฟังก์ชันนี้เมื่อโหลดหน้าเว็บ
+  document.addEventListener("DOMContentLoaded", function() {
+    checkVisibility();  // ตรวจสอบเมื่อโหลดหน้าเว็บ
+  });
+  
+  // เรียกฟังก์ชันนี้เมื่อเลื่อนสกอลเมาส์
+  document.addEventListener("scroll", function() {
+    checkVisibility();  // ตรวจสอบเมื่อเลื่อนเมาส์
+  });</script>
+<div id="loading-screen" class="flex items-center justify-center">
+    <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-white"></div>
+</div>
+
+<nav class="bg-[#a83820] p-4">
+    <div class="container mx-auto flex justify-between items-center">
+      <!-- โลโก้ -->
+      <div class="pl-2 flex items-center space-x-4">
+        <img class="h-12 w-auto" src="pic\logo.png" alt="Your Company">
+        <a href="index.html" class="text-3xl font-semibold text-white relative hover:text-gray-200 hover:text-opacity-90 transition-all duration-300 after:block after:absolute after:left-0 after:bottom-[-5px] after:h-[3px] after:bg-white after:w-0 hover:after:w-full after:transition-all after:duration-500 after:rounded-md">COE360°PROJECT</a>
+  </div>
+  
+      <!-- เมนูด้านขวา -->
+      <div class="flex items-center space-x-6 font-Itim pr-4">
+        <!-- ลิงก์ Gallery และ About Us -->
+        <a href="about.html" class="text-white text-lg font-itim  relative hover:text-gray-200 hover:text-opacity-90 transition-all duration-300 after:block after:absolute after:left-0 after:bottom-[-5px] after:h-[3px] after:bg-white after:w-0 hover:after:w-full after:transition-all after:duration-500 after:rounded-md">
+            About Us
+        </a>
+    
+        <!-- ปุ่ม Let's Tour ขวาสุด -->
+        <div class="ml-auto">
+            <a class="btn-get-started bg-white font-itim text-black px-6 py-2 rounded-full shadow-lg hover:bg-gray-300 transition-all duration-300" href="coe360project/app-files/360.html">
+                Let's Tour
+            </a>
+        </div>
+    </div>
+    </div>
+  </nav>
+
+<body class="bg-gray-100">
+<div class="container mx-auto p-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
+
+            <!-- รูปที่ 1 -->
+            <div class="image-frame hover:scale-105 transform transition duration-300 cursor-pointer fade-in-left">
+                <img src="pic/2.JPG" alt="Image 1" class="w-full h-48 object-cover rounded-lg" onclick="openPopup('pic/2.JPG')">
+            </div>
+
+            <!-- รูปที่ 2 -->
+            <div class="image-frame hover:scale-105 transform transition duration-300 cursor-pointer fade-up">
+                <img src="pic/3.JPG" alt="Image 2" class="w-full h-48 object-cover rounded-lg" onclick="openPopup('pic/3.JPG')">
+            </div>
+
+            <!-- รูปที่ 3 -->
+            <div class="image-frame hover:scale-105 transform transition duration-300 cursor-pointer fade-in-down">
+                <img src="pic/4.JPG" alt="Image 3" class="w-full h-48 object-cover rounded-lg" onclick="openPopup('pic/4.JPG')">
+            </div>
+
+            <!-- รูปที่ 4 -->
+            <div class="image-frame hover:scale-105 transform transition duration-300 cursor-pointer fade-in-right">
+                <img src="pic/5.JPG" alt="Image 4" class="w-full h-48 object-cover rounded-lg" onclick="openPopup('pic/5.JPG')">
+            </div>
+
+            <div class="image-frame hover:scale-105 transform transition duration-300 cursor-pointer fade-in-left">
+                <img src="pic/6.JPG" alt="Image 1" class="w-full h-48 object-cover rounded-lg" onclick="openPopup('pic/6.JPG')">
+            </div>
+
+            <!-- รูปที่ 2 -->
+            <div class="image-frame hover:scale-105 transform transition duration-300 cursor-pointer fade-up">
+                <img src="pic/7.JPG" alt="Image 2" class="w-full h-48 object-cover rounded-lg" onclick="openPopup('pic/7.JPG')">
+            </div>
+
+            <!-- รูปที่ 3 -->
+            <div class="image-frame hover:scale-105 transform transition duration-300 cursor-pointer fade-in-down">
+                <img src="pic/8.JPG" alt="Image 3" class="w-full h-48 object-cover rounded-lg" onclick="openPopup('pic/8.JPG')">
+            </div>
+
+            <!-- รูปที่ 4 -->
+            <div class="image-frame hover:scale-105 transform transition duration-300 cursor-pointer fade-in-right">
+                <img src="pic/9.JPG" alt="Image 4" class="w-full h-48 object-cover rounded-lg" onclick="openPopup('pic/9.JPG')">
+            </div>
+
+            <div class="image-frame hover:scale-105 transform transition duration-300 cursor-pointer fade-in-left">
+                <img src="pic/10.JPG" alt="Image 1" class="w-full h-48 object-cover rounded-lg" onclick="openPopup('pic/10.JPG')">
+            </div>
+
+            <!-- รูปที่ 2 -->
+            <div class="image-frame hover:scale-105 transform transition duration-300 cursor-pointer fade-up">
+                <img src="pic/11.JPG" alt="Image 2" class="w-full h-48 object-cover rounded-lg" onclick="openPopup('pic/11.JPG')">
+            </div>
+
+            <!-- รูปที่ 3 -->
+            <div class="image-frame hover:scale-105 transform transition duration-300 cursor-pointer fade-in-down">
+                <img src="pic/12.JPG" alt="Image 3" class="w-full h-48 object-cover rounded-lg" onclick="openPopup('pic/12.JPG')">
+            </div>
+
+            <!-- รูปที่ 4 -->
+            <div class="image-frame hover:scale-105 transform transition duration-300 cursor-pointer fade-in-right">
+                <img src="pic/13.JPG" alt="Image 4" class="w-full h-48 object-cover rounded-lg" onclick="openPopup('pic/13.JPG')">
+            </div>
+
+            <div class="image-frame hover:scale-105 transform transition duration-300 cursor-pointer fade-in-left">
+                <img src="pic/14.JPG" alt="Image 1" class="w-full h-48 object-cover rounded-lg" onclick="openPopup('pic/14.JPG')">
+            </div>
+
+            <!-- รูปที่ 2 -->
+            <div class="image-frame hover:scale-105 transform transition duration-300 cursor-pointer fade-up">
+                <img src="pic/15.JPG" alt="Image 2" class="w-full h-48 object-cover rounded-lg" onclick="openPopup('pic/15.JPG')">
+            </div>
+
+            <!-- รูปที่ 3 -->
+            <div class="image-frame hover:scale-105 transform transition duration-300 cursor-pointer fade-in-down">
+                <img src="pic/16.JPG" alt="Image 3" class="w-full h-48 object-cover rounded-lg" onclick="openPopup('pic/16.JPG')">
+            </div>
+
+            <!-- รูปที่ 4 -->
+            <div class="image-frame hover:scale-105 transform transition duration-300 cursor-pointer fade-in-right">
+                <img src="pic/17.JPG" alt="Image 4" class="w-full h-48 object-cover rounded-lg" onclick="openPopup('pic/18.JPG')">
+            </div>
+
+            <div class="image-frame hover:scale-105 transform transition duration-300 cursor-pointer fade-in-left">
+                <img src="pic/19.JPG" alt="Image 1" class="w-full h-48 object-cover rounded-lg" onclick="openPopup('pic/19.JPG')">
+            </div>
+
+            <!-- รูปที่ 2 -->
+            <div class="image-frame hover:scale-105 transform transition duration-300 cursor-pointer fade-up">
+                <img src="pic/20.JPG" alt="Image 2" class="w-full h-48 object-cover rounded-lg" onclick="openPopup('pic/20.JPG')">
+            </div>
+
+            <!-- รูปที่ 3 -->
+            <div class="image-frame hover:scale-105 transform transition duration-300 cursor-pointer fade-in-down">
+                <img src="pic/21.JPG" alt="Image 3" class="w-full h-48 object-cover rounded-lg" onclick="openPopup('pic/21.JPG')">
+            </div>
+
+            <!-- รูปที่ 4 -->
+            <div class="image-frame hover:scale-105 transform transition duration-300 cursor-pointer fade-in-right">
+                <img src="pic/22.JPG" alt="Image 4" class="w-full h-48 object-cover rounded-lg" onclick="openPopup('pic/22.JPG')">
+            </div>
+
+            <div class="image-frame hover:scale-105 transform transition duration-300 cursor-pointer fade-in-left">
+                <img src="pic/23.JPG" alt="Image 1" class="w-full h-48 object-cover rounded-lg" onclick="openPopup('pic/23.JPG')">
+            </div>
+
+            <!-- รูปที่ 2 -->
+            <div class="image-frame hover:scale-105 transform transition duration-300 cursor-pointer fade-up">
+                <img src="pic/24.JPG" alt="Image 2" class="w-full h-48 object-cover rounded-lg" onclick="openPopup('pic/24.JPG')">
+            </div>
+
+            <!-- รูปที่ 3 -->
+            <div class="image-frame hover:scale-105 transform transition duration-300 cursor-pointer fade-in-down">
+                <img src="pic/25.JPG" alt="Image 3" class="w-full h-48 object-cover rounded-lg" onclick="openPopup('pic/25.JPG')">
+            </div>
+
+            <!-- รูปที่ 4 -->
+            <div class="image-frame hover:scale-105 transform transition duration-300 cursor-pointer fade-in-left">
+                <img src="pic/27.JPG" alt="Image 4" class="w-full h-48 object-cover rounded-lg" onclick="openPopup('pic/27.JPG')">
+            </div>
+
+            <div class="image-frame hover:scale-105 transform transition duration-300 cursor-pointer fade-up">
+                <img src="pic/29.JPG" alt="Image 3" class="w-full h-48 object-cover rounded-lg" onclick="openPopup('pic/29.JPG')">
+            </div>
+
+            <!-- รูปที่ 4 -->
+            <div class="image-frame hover:scale-105 transform transition duration-300 cursor-pointer fade-in-down">
+                <img src="pic/30.JPG" alt="Image 4" class="w-full h-48 object-cover rounded-lg" onclick="openPopup('pic/30.JPG')">
+            </div>
+
+
+        </div>
+    </div>
+
+    <!-- ป๊อปอัพ -->
+    <div id="popup" class="popup-overlay">
+        <img id="popup-img" class="popup-image" src="" alt="Popup Image">
+        <button class="absolute top-4 right-4 text-white text-2xl" onclick="closePopup()">&#x2715;</button>
+    </div>
+
+    
+    <script>
+        function openPopup(imageUrl) {
+            const popup = document.getElementById('popup');
+            document.getElementById('popup-img').src = imageUrl;
+            popup.classList.add('active');  // เพิ่มคลาส active เพื่อทำให้ป๊อปอัพแสดงผลและขยายขึ้นมา
+        }
+
+        function closePopup() {
+            const popup = document.getElementById('popup');
+            const popupImage = document.getElementById('popup-img');
+
+            // เริ่มการย่อและจางลงเมื่อปิดป๊อปอัพ
+            popupImage.style.animation = 'popupFadeOut 0.6s ease-in-out forwards';
+            popup.style.animation = 'popupFadeOut 0.6s ease-in-out forwards';
+
+            // หลังจากที่อนิเมชั่นเสร็จแล้ว ปิดป๊อปอัพ
+            setTimeout(() => {
+                popup.classList.remove('active');
+                popupImage.style.animation = '';  // รีเซ็ตอนิเมชั่น
+                popup.style.animation = '';
+            }, 600);  // เวลาที่ตรงกับความยาวของอนิเมชั่น
+        }
+
+        window.onload = function() {
+            document.getElementById('loading-screen').style.display = 'none';
+        };
+    </script>
+
+<footer class="bg-[#a83820] text-white p-6">
+    <div class="container mx-auto flex justify-between items-center">
+      <!-- โลโก้และชื่อโปรเจกต์ -->
+      <div class="pl-2 flex items-center">
+        <img class="h-12 w-auto" src="pic\logo.png" alt="Your Company">
+        <h1 class="text-white font-bold text-xl ml-4">COE360°PROJECT</h1>
+      </div>
+  
+      <!-- ข้อมูลติดต่อหรือลิงก์ -->
+      <div class="space-x-4 font-itim">
+        <a href="https://www.instagram.com/pro_sc_grammer.zip.html.py.ipy?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" class="text-white relative flex items-center hover:text-gray-200 transition-all duration-300 after:block after:absolute after:left-0 after:bottom-[-5px] after:h-[2px] after:bg-white after:w-0 hover:after:w-full after:transition-all after:duration-500 after:rounded-md"><img src="pic\instagram-1-svgrepo-com.svg" alt="icon" class="w-auto h-8 mr-2" />: Contact us</a>
+      </div>
+    </div>
+  
+    <!-- ลิงก์ด้านล่างเพิ่มเติม -->
+    <div class="container mx-auto flex justify-between items-center mt-4">
+      <p class="text-sm">&copy; 2024 COE360° Project. All rights reserved.</p>
+      <div class="flex space-x-4 font-itim">
+        <a href="gift.html" target="_blank" class="text-white relative flex items-center hover:text-gray-200 transition-all duration-300 after:block after:absolute after:left-0 after:bottom-[-5px] after:h-[2px] after:bg-white after:w-0 hover:after:w-full after:transition-all after:duration-500 after:rounded-md">Take this or mystery gift?</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
